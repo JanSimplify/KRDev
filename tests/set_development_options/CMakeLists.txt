@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2025 JanSimplify
+
 include(KRDevCompilerOption)
 
 add_executable(krdev_test_develop_options)

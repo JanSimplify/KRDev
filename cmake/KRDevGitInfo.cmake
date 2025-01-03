@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2025 JanSimplify
+
 find_package(Git QUIET)
 
 # krdev_get_git_description(

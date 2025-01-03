@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: Copyright (c) 2024 JanSimplify
+# SPDX-FileCopyrightText: Copyright (c) 2025 JanSimplify
 
 include(CheckCCompilerFlag)
 include(CheckCXXCompilerFlag)
