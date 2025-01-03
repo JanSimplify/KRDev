@@ -371,7 +371,6 @@ function(krdev_targets_set_development_options)
         /w44265 # has virtual member function with non-virtual dtor
         /w44355 # using this in initializer list
         /w44471 # enum forward declaration without underlying type
-        /w44623
     )
 
     krdev_targets_set_compile_options(
