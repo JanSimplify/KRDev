@@ -221,8 +221,6 @@ function(krdev_targets_set_development_options)
         -Wformat-signedness
         # switch case
         -Wimplicit-fallthrough=5
-        -Wswitch-default
-        -Wswitch-enum
         # flow control statement
         -Wduplicated-cond
         -Wduplicated-branches
@@ -302,8 +300,6 @@ function(krdev_targets_set_development_options)
         -Wformat-type-confusion
         # switch case
         -Wimplicit-fallthrough
-        -Wswitch-default
-        -Wswitch-enum
         # flow control statement
         -Wlogical-op-parentheses
         # others
@@ -354,7 +350,6 @@ function(krdev_targets_set_development_options)
         # /w44311 # pointer truncation
         /w44946
         # switch case
-        /w44061 # missing case label
         /w44062 # missing case label and no default
         # other
         /w44255 # strict prototypes, C only
