@@ -286,6 +286,7 @@ function(krdev_targets_set_development_options)
         -Wunused-exception-parameter
         -Wundef
         -Wundefined-internal-type
+        -Wmissing-prototypes
         # conversion
         -Wconversion
         -Wcast-qual
