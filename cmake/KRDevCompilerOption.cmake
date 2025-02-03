@@ -461,3 +461,38 @@ function(krdev_targets_set_sanitizer)
         )
     endif()
 endfunction()
+
+# krdev_targets_set_coverage(
+#   TARGETS [targets...]
+# )
+function(krdev_targets_set_coverage)
+    cmake_parse_arguments(
+        PARSE_ARGV 0
+        ARG
+        ""
+        ""
+        "TARGETS"
+    )
+
+    if(NOT ARG_TARGETS)
+        message(FATAL_ERROR "${CMAKE_CURRENT_FUNCTION} called with incorrect number of arguments")
+    endif()
+
+    krdev_targets_set_compile_options(
+        TARGETS ${ARG_TARGETS}
+        PRIVATE
+            GCC_C_OPTIONS --coverage
+            GCC_CXX_OPTIONS --coverage
+            CLANG_C_OPTIONS --coverage
+            CLANG_CXX_OPTIONS --coverage
+    )
+
+    krdev_targets_set_link_options(
+        TARGETS ${ARG_TARGETS}
+        PUBLIC
+            GCC_C_OPTIONS --coverage
+            GCC_CXX_OPTIONS --coverage
+            CLANG_C_OPTIONS --coverage
+            CLANG_CXX_OPTIONS --coverage
+    )
+endfunction()

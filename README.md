@@ -5,7 +5,7 @@
 CMake跨平台开发中常用辅助函数，包含：
 
 - 编译器特定的编译和链接选项设置函数；
-- 辅助函数：设置常见编译警告和`Sanitizer`选项；
+- 辅助函数：设置常见编译警告、`Sanitizer`和`Coverage`选项；
 - 获取Git提交信息。
 
 测试于：
@@ -107,6 +107,14 @@ krdev_targets_set_sanitizer(
     TARGETS [targets...]
     [ADDRESS]
     [UNDEFINED]
+)
+```
+
+`krdev_targets_set_coverage()`设置代码覆盖率选项，在GCC和Clang下可用，MSVC中被简单忽略：
+
+```cmake
+krdev_targets_set_coverage(
+  TARGETS [targets...]
 )
 ```
 
