@@ -38,24 +38,28 @@ find_package(Git QUIET)
 #   [LONG]
 # )
 function(krdev_get_git_description)
+    set(options QUIET ALL DIRTY ALWAYS LONG)
+    set(one_value_keywords OUTPUT_VARIABLE WORKING_DIRECTORY)
+    set(multi_value_keywords)
+
     cmake_parse_arguments(
         PARSE_ARGV 0
-        ARG
-        "QUIET;ALL;DIRTY;ALWAYS;LONG"
-        "OUTPUT_VARIABLE;WORKING_DIRECTORY"
-        ""
+        arg
+        "${options}"
+        "${one_value_keywords}"
+        "${multi_value_keywords}"
     )
 
-    if(NOT ARG_OUTPUT_VARIABLE)
-        message(FATAL_ERROR "Missing required value: OUTPUT_VARIABLE")
+    if(arg_KEYWORDS_MISSING_VALUES)
+        message(FATAL_ERROR "Missing required value: ${arg_KEYWORDS_MISSING_VALUES}")
     endif()
 
-    if(NOT ARG_WORKING_DIRECTORY)
-        message(FATAL_ERROR "Missing required value: WORKING_DIRECTORY")
+    if(arg_UNPARSED_ARGUMENTS)
+        message(FATAL_ERROR "Unparsed arguments: ${arg_UNPARSED_ARGUMENTS}")
     endif()
 
     if(NOT Git_FOUND)
-        if(NOT ARG_QUIET)
+        if(NOT arg_QUIET)
             message(
                 FATAL_ERROR
                 "Could not find \"Git\" package configuration file."
@@ -66,41 +70,41 @@ function(krdev_get_git_description)
 
     set(command_options)
 
-    if(ARG_ALL)
+    if(arg_ALL)
         list(APPEND command_options --all)
     endif()
 
-    if(ARG_DIRTY)
+    if(arg_DIRTY)
         list(APPEND command_options --dirty)
     endif()
 
-    if(ARG_ALWAYS)
+    if(arg_ALWAYS)
         list(APPEND command_options --always)
     endif()
 
-    if(ARG_LONG)
+    if(arg_LONG)
         list(APPEND command_options --long)
     endif()
 
     set(cmd_args
         COMMAND ${GIT_EXECUTABLE} describe ${command_options}
-        WORKING_DIRECTORY ${ARG_WORKING_DIRECTORY}
+        WORKING_DIRECTORY ${arg_WORKING_DIRECTORY}
         RESULT_VARIABLE result
         OUTPUT_VARIABLE git_describe
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 
-    if(ARG_QUIET)
+    if(arg_QUIET)
         list(APPEND cmd_args ERROR_QUIET)
     endif()
 
     execute_process(${cmd_args})
 
-    if(result AND NOT ARG_QUIET)
+    if(result AND NOT arg_QUIET)
         message(FATAL_ERROR "Failed to get git description: ${result}")
     endif()
 
-    set(${ARG_OUTPUT_VARIABLE} "${git_describe}" PARENT_SCOPE)
+    set(${arg_OUTPUT_VARIABLE} "${git_describe}" PARENT_SCOPE)
 endfunction(krdev_get_git_description)
 
 # krdev_get_git_hash(
@@ -109,24 +113,28 @@ endfunction(krdev_get_git_description)
 #   [QUIET]
 # )
 function(krdev_get_git_hash)
+    set(options QUIET)
+    set(one_value_keywords OUTPUT_VARIABLE WORKING_DIRECTORY)
+    set(multi_value_keywords)
+
     cmake_parse_arguments(
         PARSE_ARGV 0
-        ARG
-        "QUIET"
-        "OUTPUT_VARIABLE;WORKING_DIRECTORY"
-        ""
+        arg
+        "${options}"
+        "${one_value_keywords}"
+        "${multi_value_keywords}"
     )
 
-    if(NOT ARG_OUTPUT_VARIABLE)
-        message(FATAL_ERROR "Missing required value: OUTPUT_VARIABLE")
+    if(arg_KEYWORDS_MISSING_VALUES)
+        message(FATAL_ERROR "Missing required value: ${arg_KEYWORDS_MISSING_VALUES}")
     endif()
 
-    if(NOT ARG_WORKING_DIRECTORY)
-        message(FATAL_ERROR "Missing required value: WORKING_DIRECTORY")
+    if(arg_UNPARSED_ARGUMENTS)
+        message(FATAL_ERROR "Unparsed arguments: ${arg_UNPARSED_ARGUMENTS}")
     endif()
 
     if(NOT Git_FOUND)
-        if(NOT ARG_QUIET)
+        if(NOT arg_QUIET)
             message(
                 FATAL_ERROR
                 "Could not find \"Git\" package configuration file."
@@ -137,21 +145,21 @@ function(krdev_get_git_hash)
 
     set(cmd_args
         COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
-        WORKING_DIRECTORY ${ARG_WORKING_DIRECTORY}
+        WORKING_DIRECTORY ${arg_WORKING_DIRECTORY}
         RESULT_VARIABLE result
         OUTPUT_VARIABLE git_hash
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 
-    if(ARG_QUIET)
+    if(arg_QUIET)
         list(APPEND cmd_args ERROR_QUIET)
     endif()
 
     execute_process(${cmd_args})
 
-    if(result AND NOT ARG_QUIET)
+    if(result AND NOT arg_QUIET)
         message(FATAL_ERROR "Failed to get git hash: ${result}")
     endif()
 
-    set(${ARG_OUTPUT_VARIABLE} "${git_hash}" PARENT_SCOPE)
+    set(${arg_OUTPUT_VARIABLE} "${git_hash}" PARENT_SCOPE)
 endfunction(krdev_get_git_hash)
