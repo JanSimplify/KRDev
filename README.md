@@ -126,6 +126,7 @@ krdev_targets_set_coverage(
 krdev_get_git_description(
     OUTPUT_VARIABLE <outvar>
     WORKING_DIRECTORY <dir>
+    [QUIET]
     [ALL]
     [DIRTY]
     [ALWAYS]
@@ -133,7 +134,7 @@ krdev_get_git_description(
 )
 ```
 
-相关选项请查阅`git`文档。
+`QUIET`选项指定该命令在调用失败时忽略错误；其他选项对应于`git desc`命令行参数，功能请查阅`git`文档。
 
 `krdev_get_git_hash()`调用`git rev-parse HEAD`获取提交HASH信息：
 
@@ -141,5 +142,8 @@ krdev_get_git_description(
 krdev_get_git_hash(
     OUTPUT_VARIABLE <outvar>
     WORKING_DIRECTORY <dir>
+    [QUIET]
 )
 ```
+
+`QUIET`选项指定该命令在调用失败时忽略错误。

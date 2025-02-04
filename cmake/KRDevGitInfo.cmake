@@ -31,6 +31,7 @@ find_package(Git QUIET)
 # krdev_get_git_description(
 #   OUTPUT_VARIABLE <outvar>
 #   WORKING_DIRECTORY <dir>
+#   [QUIET]
 #   [ALL]
 #   [DIRTY]
 #   [ALWAYS]
@@ -40,7 +41,7 @@ function(krdev_get_git_description)
     cmake_parse_arguments(
         PARSE_ARGV 0
         ARG
-        "ALL;DIRTY;ALWAYS;LONG"
+        "QUIET;ALL;DIRTY;ALWAYS;LONG"
         "OUTPUT_VARIABLE;WORKING_DIRECTORY"
         ""
     )
@@ -54,10 +55,13 @@ function(krdev_get_git_description)
     endif()
 
     if(NOT Git_FOUND)
-        message(
-            FATAL_ERROR
-            "Could not find \"Git\" package configuration file."
-        )
+        if(NOT ARG_QUIET)
+            message(
+                FATAL_ERROR
+                "Could not find \"Git\" package configuration file."
+            )
+        endif()
+        return()
     endif()
 
     set(command_options)
@@ -78,7 +82,7 @@ function(krdev_get_git_description)
         list(APPEND command_options --long)
     endif()
 
-    execute_process(
+    set(cmd_args
         COMMAND ${GIT_EXECUTABLE} describe ${command_options}
         WORKING_DIRECTORY ${ARG_WORKING_DIRECTORY}
         RESULT_VARIABLE result
@@ -86,7 +90,13 @@ function(krdev_get_git_description)
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 
-    if(result)
+    if(ARG_QUIET)
+        list(APPEND cmd_args ERROR_QUIET)
+    endif()
+
+    execute_process(${cmd_args})
+
+    if(result AND NOT ARG_QUIET)
         message(FATAL_ERROR "Failed to get git description: ${result}")
     endif()
 
@@ -96,12 +106,13 @@ endfunction(krdev_get_git_description)
 # krdev_get_git_hash(
 #   OUTPUT_VARIABLE <outvar>
 #   WORKING_DIRECTORY <dir>
+#   [QUIET]
 # )
 function(krdev_get_git_hash)
     cmake_parse_arguments(
         PARSE_ARGV 0
         ARG
-        ""
+        "QUIET"
         "OUTPUT_VARIABLE;WORKING_DIRECTORY"
         ""
     )
@@ -115,13 +126,16 @@ function(krdev_get_git_hash)
     endif()
 
     if(NOT Git_FOUND)
-        message(
-            FATAL_ERROR
-            "Could not find \"Git\" package configuration file."
-        )
+        if(NOT ARG_QUIET)
+            message(
+                FATAL_ERROR
+                "Could not find \"Git\" package configuration file."
+            )
+        endif()
+        return()
     endif()
 
-    execute_process(
+    set(cmd_args
         COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
         WORKING_DIRECTORY ${ARG_WORKING_DIRECTORY}
         RESULT_VARIABLE result
@@ -129,7 +143,13 @@ function(krdev_get_git_hash)
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 
-    if(result)
+    if(ARG_QUIET)
+        list(APPEND cmd_args ERROR_QUIET)
+    endif()
+
+    execute_process(${cmd_args})
+
+    if(result AND NOT ARG_QUIET)
         message(FATAL_ERROR "Failed to get git hash: ${result}")
     endif()
 
