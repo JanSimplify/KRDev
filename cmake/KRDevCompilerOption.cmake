@@ -306,7 +306,7 @@ function(krdev_targets_set_development_options)
     if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
         check_cxx_compiler_flag("-Wnrvo" KRDEV_GCC_CXX_SUPPORT_NRVO)
         if(KRDEV_GCC_CXX_SUPPORT_NRVO)
-            list(APPEND gcc_c_develop_options "-Wnrvo")
+            list(APPEND gcc_cxx_develop_options "-Wnrvo")
         endif()
     endif()
 
