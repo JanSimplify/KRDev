@@ -40,13 +40,13 @@ find_package(Git QUIET)
 #   [LONG]
 # )
 function(krdev_get_git_description)
-    set(options QUIET ALL DIRTY ALWAYS LONG)
-    set(one_value_keywords OUTPUT_VARIABLE WORKING_DIRECTORY)
+    set(options "QUIET;ALL;DIRTY;ALWAYS;LONG")
+    set(one_value_keywords "OUTPUT_VARIABLE;WORKING_DIRECTORY")
     set(multi_value_keywords)
 
     cmake_parse_arguments(
         PARSE_ARGV 0
-        arg
+        "arg"
         "${options}"
         "${one_value_keywords}"
         "${multi_value_keywords}"
@@ -77,31 +77,31 @@ function(krdev_get_git_description)
     set(command_options)
 
     if(arg_ALL)
-        list(APPEND command_options --all)
+        list(APPEND command_options "--all")
     endif()
 
     if(arg_DIRTY)
-        list(APPEND command_options --dirty)
+        list(APPEND command_options "--dirty")
     endif()
 
     if(arg_ALWAYS)
-        list(APPEND command_options --always)
+        list(APPEND command_options "--always")
     endif()
 
     if(arg_LONG)
-        list(APPEND command_options --long)
+        list(APPEND command_options "--long")
     endif()
 
     set(cmd_args
-        COMMAND ${GIT_EXECUTABLE} describe ${command_options}
-        WORKING_DIRECTORY ${arg_WORKING_DIRECTORY}
+        COMMAND "${GIT_EXECUTABLE}" describe ${command_options}
+        WORKING_DIRECTORY "${arg_WORKING_DIRECTORY}"
         RESULT_VARIABLE result
         OUTPUT_VARIABLE git_describe
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 
     if(arg_QUIET)
-        list(APPEND cmd_args ERROR_QUIET)
+        list(APPEND cmd_args "ERROR_QUIET")
     endif()
 
     execute_process(${cmd_args})
@@ -119,13 +119,13 @@ endfunction(krdev_get_git_description)
 #   [QUIET]
 # )
 function(krdev_get_git_hash)
-    set(options QUIET)
-    set(one_value_keywords OUTPUT_VARIABLE WORKING_DIRECTORY)
+    set(options "QUIET")
+    set(one_value_keywords "OUTPUT_VARIABLE;WORKING_DIRECTORY")
     set(multi_value_keywords)
 
     cmake_parse_arguments(
         PARSE_ARGV 0
-        arg
+        "arg"
         "${options}"
         "${one_value_keywords}"
         "${multi_value_keywords}"
@@ -154,15 +154,15 @@ function(krdev_get_git_hash)
     endif()
 
     set(cmd_args
-        COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
-        WORKING_DIRECTORY ${arg_WORKING_DIRECTORY}
+        COMMAND "${GIT_EXECUTABLE}" rev-parse HEAD
+        WORKING_DIRECTORY "${arg_WORKING_DIRECTORY}"
         RESULT_VARIABLE result
         OUTPUT_VARIABLE git_hash
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 
     if(arg_QUIET)
-        list(APPEND cmd_args ERROR_QUIET)
+        list(APPEND cmd_args "ERROR_QUIET")
     endif()
 
     execute_process(${cmd_args})

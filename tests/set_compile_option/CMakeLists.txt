@@ -5,18 +5,18 @@ include(KRDevCompilerOption)
 
 add_executable(
     krdev_test_set_compile_option
-    c_option.c
-    cxx_option.cpp
-    test_main.cpp
+    "c_option.c"
+    "cxx_option.cpp"
+    "test_main.cpp"
 )
 
 krdev_targets_set_compile_options(
     TARGETS krdev_test_set_compile_option
     PRIVATE
-        GCC_C_OPTIONS -DKRDEV_SET_C_OPTIONS_ON_GCC
-        GCC_CXX_OPTIONS -DKRDEV_SET_CXX_OPTIONS_ON_GCC
-        CLANG_C_OPTIONS -DKRDEV_SET_C_OPTIONS_ON_CLANG
-        CLANG_CXX_OPTIONS -DKRDEV_SET_CXX_OPTIONS_ON_CLANG
+        GCC_C_OPTIONS "-DKRDEV_SET_C_OPTIONS_ON_GCC"
+        GCC_CXX_OPTIONS "-DKRDEV_SET_CXX_OPTIONS_ON_GCC"
+        CLANG_C_OPTIONS "-DKRDEV_SET_C_OPTIONS_ON_CLANG"
+        CLANG_CXX_OPTIONS "-DKRDEV_SET_CXX_OPTIONS_ON_CLANG"
         MSVC_OPTIONS "/DKRDEV_SET_OPTIONS_ON_MSVC"
 )
 

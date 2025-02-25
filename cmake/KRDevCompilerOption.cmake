@@ -44,11 +44,11 @@ include(CheckCXXCompilerFlag)
 function(krdev_targets_set_compile_options)
     set(options)
     set(one_value_keywords)
-    set(multi_value_keywords TARGETS PUBLIC INTERFACE PRIVATE)
+    set(multi_value_keywords "TARGETS;PUBLIC;INTERFACE;PRIVATE")
 
     cmake_parse_arguments(
         PARSE_ARGV 0
-        arg
+        "arg"
         "${options}"
         "${one_value_keywords}"
         "${multi_value_keywords}"
@@ -58,7 +58,7 @@ function(krdev_targets_set_compile_options)
         message(FATAL_ERROR "Unparsed arguments: ${arg_UNPARSED_ARGUMENTS}")
     endif()
 
-    set(sub_options MSVC_OPTIONS GCC_C_OPTIONS GCC_CXX_OPTIONS CLANG_C_OPTIONS CLANG_CXX_OPTIONS)
+    set(sub_options "MSVC_OPTIONS;GCC_C_OPTIONS;GCC_CXX_OPTIONS;CLANG_C_OPTIONS;CLANG_CXX_OPTIONS")
 
     cmake_parse_arguments(
         arg_PUBLIC
@@ -100,23 +100,23 @@ function(krdev_targets_set_compile_options)
         target_compile_options(
             ${target}
             PUBLIC
-                $<$<COMPILE_LANG_AND_ID:C,GNU>:${arg_PUBLIC_GCC_C_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:CXX,GNU>:${arg_PUBLIC_GCC_CXX_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:C,Clang>:${arg_PUBLIC_CLANG_C_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:CXX,Clang>:${arg_PUBLIC_CLANG_CXX_OPTIONS}>
-                $<$<OR:$<COMPILE_LANG_AND_ID:C,MSVC>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:${arg_PUBLIC_MSVC_OPTIONS}>
+                "$<$<COMPILE_LANG_AND_ID:C,GNU>:${arg_PUBLIC_GCC_C_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:${arg_PUBLIC_GCC_CXX_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:C,Clang>:${arg_PUBLIC_CLANG_C_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:CXX,Clang>:${arg_PUBLIC_CLANG_CXX_OPTIONS}>"
+                "$<$<OR:$<COMPILE_LANG_AND_ID:C,MSVC>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:${arg_PUBLIC_MSVC_OPTIONS}>"
             INTERFACE
-                $<$<COMPILE_LANG_AND_ID:C,GNU>:${arg_INTERFACE_GCC_C_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:CXX,GNU>:${arg_INTERFACE_GCC_CXX_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:C,Clang>:${arg_INTERFACE_CLANG_C_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:CXX,Clang>:${arg_INTERFACE_CLANG_CXX_OPTIONS}>
-                $<$<OR:$<COMPILE_LANG_AND_ID:C,MSVC>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:${arg_INTERFACE_MSVC_OPTIONS}>
+                "$<$<COMPILE_LANG_AND_ID:C,GNU>:${arg_INTERFACE_GCC_C_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:${arg_INTERFACE_GCC_CXX_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:C,Clang>:${arg_INTERFACE_CLANG_C_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:CXX,Clang>:${arg_INTERFACE_CLANG_CXX_OPTIONS}>"
+                "$<$<OR:$<COMPILE_LANG_AND_ID:C,MSVC>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:${arg_INTERFACE_MSVC_OPTIONS}>"
             PRIVATE
-                $<$<COMPILE_LANG_AND_ID:C,GNU>:${arg_PRIVATE_GCC_C_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:CXX,GNU>:${arg_PRIVATE_GCC_CXX_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:C,Clang>:${arg_PRIVATE_CLANG_C_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:CXX,Clang>:${arg_PRIVATE_CLANG_CXX_OPTIONS}>
-                $<$<OR:$<COMPILE_LANG_AND_ID:C,MSVC>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:${arg_PRIVATE_MSVC_OPTIONS}>
+                "$<$<COMPILE_LANG_AND_ID:C,GNU>:${arg_PRIVATE_GCC_C_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:${arg_PRIVATE_GCC_CXX_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:C,Clang>:${arg_PRIVATE_CLANG_C_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:CXX,Clang>:${arg_PRIVATE_CLANG_CXX_OPTIONS}>"
+                "$<$<OR:$<COMPILE_LANG_AND_ID:C,MSVC>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:${arg_PRIVATE_MSVC_OPTIONS}>"
         )
     endforeach()
 endfunction(krdev_targets_set_compile_options)
@@ -134,11 +134,11 @@ endfunction(krdev_targets_set_compile_options)
 function(krdev_targets_set_link_options)
     set(options)
     set(one_value_keywords)
-    set(multi_value_keywords TARGETS PUBLIC INTERFACE PRIVATE)
+    set(multi_value_keywords TARGETS "PUBLIC;INTERFACE;PRIVATE")
 
     cmake_parse_arguments(
         PARSE_ARGV 0
-        arg
+        "arg"
         "${options}"
         "${one_value_keywords}"
         "${multi_value_keywords}"
@@ -148,7 +148,7 @@ function(krdev_targets_set_link_options)
         message(FATAL_ERROR "Unparsed arguments: ${arg_UNPARSED_ARGUMENTS}")
     endif()
 
-    set(sub_options MSVC_OPTIONS GCC_C_OPTIONS GCC_CXX_OPTIONS CLANG_C_OPTIONS CLANG_CXX_OPTIONS)
+    set(sub_options "MSVC_OPTIONS;GCC_C_OPTIONS;GCC_CXX_OPTIONS;CLANG_C_OPTIONS;CLANG_CXX_OPTIONS")
 
     cmake_parse_arguments(
         arg_PUBLIC
@@ -190,23 +190,23 @@ function(krdev_targets_set_link_options)
         target_link_options(
             ${target}
             PUBLIC
-                $<$<COMPILE_LANG_AND_ID:C,GNU>:${arg_PUBLIC_GCC_C_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:CXX,GNU>:${arg_PUBLIC_GCC_CXX_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:C,Clang>:${arg_PUBLIC_CLANG_C_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:CXX,Clang>:${arg_PUBLIC_CLANG_CXX_OPTIONS}>
-                $<$<OR:$<COMPILE_LANG_AND_ID:C,MSVC>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:${arg_PUBLIC_MSVC_OPTIONS}>
+                "$<$<COMPILE_LANG_AND_ID:C,GNU>:${arg_PUBLIC_GCC_C_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:${arg_PUBLIC_GCC_CXX_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:C,Clang>:${arg_PUBLIC_CLANG_C_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:CXX,Clang>:${arg_PUBLIC_CLANG_CXX_OPTIONS}>"
+                "$<$<OR:$<COMPILE_LANG_AND_ID:C,MSVC>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:${arg_PUBLIC_MSVC_OPTIONS}>"
             INTERFACE
-                $<$<COMPILE_LANG_AND_ID:C,GNU>:${arg_INTERFACE_GCC_C_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:CXX,GNU>:${arg_INTERFACE_GCC_CXX_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:C,Clang>:${arg_INTERFACE_CLANG_C_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:CXX,Clang>:${arg_INTERFACE_CLANG_CXX_OPTIONS}>
-                $<$<OR:$<COMPILE_LANG_AND_ID:C,MSVC>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:${arg_INTERFACE_MSVC_OPTIONS}>
+                "$<$<COMPILE_LANG_AND_ID:C,GNU>:${arg_INTERFACE_GCC_C_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:${arg_INTERFACE_GCC_CXX_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:C,Clang>:${arg_INTERFACE_CLANG_C_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:CXX,Clang>:${arg_INTERFACE_CLANG_CXX_OPTIONS}>"
+                "$<$<OR:$<COMPILE_LANG_AND_ID:C,MSVC>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:${arg_INTERFACE_MSVC_OPTIONS}>"
             PRIVATE
-                $<$<COMPILE_LANG_AND_ID:C,GNU>:${arg_PRIVATE_GCC_C_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:CXX,GNU>:${arg_PRIVATE_GCC_CXX_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:C,Clang>:${arg_PRIVATE_CLANG_C_OPTIONS}>
-                $<$<COMPILE_LANG_AND_ID:CXX,Clang>:${arg_PRIVATE_CLANG_CXX_OPTIONS}>
-                $<$<OR:$<COMPILE_LANG_AND_ID:C,MSVC>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:${arg_PRIVATE_MSVC_OPTIONS}>
+                "$<$<COMPILE_LANG_AND_ID:C,GNU>:${arg_PRIVATE_GCC_C_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:${arg_PRIVATE_GCC_CXX_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:C,Clang>:${arg_PRIVATE_CLANG_C_OPTIONS}>"
+                "$<$<COMPILE_LANG_AND_ID:CXX,Clang>:${arg_PRIVATE_CLANG_CXX_OPTIONS}>"
+                "$<$<OR:$<COMPILE_LANG_AND_ID:C,MSVC>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:${arg_PRIVATE_MSVC_OPTIONS}>"
         )
     endforeach()
 endfunction(krdev_targets_set_link_options)
@@ -217,13 +217,13 @@ endfunction(krdev_targets_set_link_options)
 #   [ERROR_AS_FATAL]
 # )
 function(krdev_targets_set_development_options)
-    set(options WARNING_AS_ERROR ERROR_AS_FATAL)
+    set(options "WARNING_AS_ERROR;ERROR_AS_FATAL")
     set(one_value_keywords)
-    set(multi_value_keywords TARGETS)
+    set(multi_value_keywords "TARGETS")
 
     cmake_parse_arguments(
         PARSE_ARGV 0
-        arg
+        "arg"
         "${options}"
         "${one_value_keywords}"
         "${multi_value_keywords}"
@@ -451,13 +451,13 @@ endfunction(krdev_targets_set_development_options)
 #   [UNDEFINED]
 # )
 function(krdev_targets_set_sanitizer)
-    set(options ADDRESS UNDEFINED)
+    set(options "ADDRESS;UNDEFINED")
     set(one_value_keywords)
-    set(multi_value_keywords TARGETS)
+    set(multi_value_keywords "TARGETS")
 
     cmake_parse_arguments(
         PARSE_ARGV 0
-        arg
+        "arg"
         "${options}"
         "${one_value_keywords}"
         "${multi_value_keywords}"
@@ -471,19 +471,19 @@ function(krdev_targets_set_sanitizer)
         krdev_targets_set_compile_options(
             TARGETS ${arg_TARGETS}
             PRIVATE
-                GCC_C_OPTIONS -fsanitize=address
-                GCC_CXX_OPTIONS -fsanitize=address
-                CLANG_C_OPTIONS -fsanitize=address
-                CLANG_CXX_OPTIONS -fsanitize=address
-                MSVC_OPTIONS /fsanitize=address
+                GCC_C_OPTIONS "-fsanitize=address"
+                GCC_CXX_OPTIONS "-fsanitize=address"
+                CLANG_C_OPTIONS "-fsanitize=address"
+                CLANG_CXX_OPTIONS "-fsanitize=address"
+                MSVC_OPTIONS "/fsanitize=address"
         )
         krdev_targets_set_link_options(
             TARGETS ${arg_TARGETS}
             PRIVATE
-                GCC_C_OPTIONS -fsanitize=address
-                GCC_CXX_OPTIONS -fsanitize=address
-                CLANG_C_OPTIONS -fsanitize=address
-                CLANG_CXX_OPTIONS -fsanitize=address
+                GCC_C_OPTIONS "-fsanitize=address"
+                GCC_CXX_OPTIONS "-fsanitize=address"
+                CLANG_C_OPTIONS "-fsanitize=address"
+                CLANG_CXX_OPTIONS "-fsanitize=address"
         )
     endif()
 
@@ -491,19 +491,19 @@ function(krdev_targets_set_sanitizer)
         krdev_targets_set_compile_options(
             TARGETS ${arg_TARGETS}
             PRIVATE
-                GCC_C_OPTIONS -fsanitize=undefined
-                GCC_CXX_OPTIONS -fsanitize=undefined
-                CLANG_C_OPTIONS -fsanitize=undefined
-                CLANG_CXX_OPTIONS -fsanitize=undefined
-                MSVC_OPTIONS /fsanitize=undefined
+                GCC_C_OPTIONS "-fsanitize=undefined"
+                GCC_CXX_OPTIONS "-fsanitize=undefined"
+                CLANG_C_OPTIONS "-fsanitize=undefined"
+                CLANG_CXX_OPTIONS "-fsanitize=undefined"
+                MSVC_OPTIONS "/fsanitize=undefined"
         )
         krdev_targets_set_link_options(
             TARGETS ${arg_TARGETS}
             PRIVATE
-                GCC_C_OPTIONS -fsanitize=undefined
-                GCC_CXX_OPTIONS -fsanitize=undefined
-                CLANG_C_OPTIONS -fsanitize=undefined
-                CLANG_CXX_OPTIONS -fsanitize=undefined
+                GCC_C_OPTIONS "-fsanitize=undefined"
+                GCC_CXX_OPTIONS "-fsanitize=undefined"
+                CLANG_C_OPTIONS "-fsanitize=undefined"
+                CLANG_CXX_OPTIONS "-fsanitize=undefined"
         )
     endif()
 endfunction(krdev_targets_set_sanitizer)
@@ -514,11 +514,11 @@ endfunction(krdev_targets_set_sanitizer)
 function(krdev_targets_set_coverage)
     set(options)
     set(one_value_keywords)
-    set(multi_value_keywords TARGETS)
+    set(multi_value_keywords "TARGETS")
 
     cmake_parse_arguments(
         PARSE_ARGV 0
-        arg
+        "arg"
         "${options}"
         "${one_value_keywords}"
         "${multi_value_keywords}"
@@ -535,18 +535,18 @@ function(krdev_targets_set_coverage)
     krdev_targets_set_compile_options(
         TARGETS ${arg_TARGETS}
         PRIVATE
-            GCC_C_OPTIONS --coverage
-            GCC_CXX_OPTIONS --coverage
-            CLANG_C_OPTIONS --coverage
-            CLANG_CXX_OPTIONS --coverage
+            GCC_C_OPTIONS "--coverage"
+            GCC_CXX_OPTIONS "--coverage"
+            CLANG_C_OPTIONS "--coverage"
+            CLANG_CXX_OPTIONS "--coverage"
     )
 
     krdev_targets_set_link_options(
         TARGETS ${arg_TARGETS}
         PUBLIC
-            GCC_C_OPTIONS --coverage
-            GCC_CXX_OPTIONS --coverage
-            CLANG_C_OPTIONS --coverage
-            CLANG_CXX_OPTIONS --coverage
+            GCC_C_OPTIONS "--coverage"
+            GCC_CXX_OPTIONS "--coverage"
+            CLANG_C_OPTIONS "--coverage"
+            CLANG_CXX_OPTIONS "--coverage"
     )
 endfunction(krdev_targets_set_coverage)

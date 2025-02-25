@@ -10,11 +10,13 @@ target_sources(
     PRIVATE
         FILE_SET krdev_test_develop_options_header_set
         TYPE HEADERS
-        FILES c_file.h cxx_file.hpp
+        FILES
+            "c_file.h"
+            "cxx_file.hpp"
     PRIVATE
-        test_main.cpp
-        c_file.c
-        cxx_file.cpp
+        "test_main.cpp"
+        "c_file.c"
+        "cxx_file.cpp"
 )
 
 krdev_targets_set_development_options(

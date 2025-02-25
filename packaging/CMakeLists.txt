@@ -44,8 +44,8 @@ configure_package_config_file(
 
 install(
     FILES
-        ${autogen_package_config}
-        ${autogen_package_version_file}
+        "${autogen_package_config}"
+        "${autogen_package_version_file}"
         ${script_files}
     DESTINATION "${config_install_dir}"
     COMPONENT "${development_component}"
