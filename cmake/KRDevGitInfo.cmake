@@ -50,6 +50,10 @@ function(krdev_get_git_description)
         "${multi_value_keywords}"
     )
 
+    if(NOT arg_OUTPUT_VARIABLE)
+        message(FATAL_ERROR "Missing required value: OUTPUT_VARIABLE")
+    endif()
+
     if(arg_KEYWORDS_MISSING_VALUES)
         message(FATAL_ERROR "Missing required value: ${arg_KEYWORDS_MISSING_VALUES}")
     endif()
@@ -124,6 +128,10 @@ function(krdev_get_git_hash)
         "${one_value_keywords}"
         "${multi_value_keywords}"
     )
+
+    if(NOT arg_OUTPUT_VARIABLE)
+        message(FATAL_ERROR "Missing required value: OUTPUT_VARIABLE")
+    endif()
 
     if(arg_KEYWORDS_MISSING_VALUES)
         message(FATAL_ERROR "Missing required value: ${arg_KEYWORDS_MISSING_VALUES}")
