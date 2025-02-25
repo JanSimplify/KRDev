@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
 # Project
 #=============================
 
-project(KRDev VERSION 1.0.4)
+project(KRDev VERSION 1.0.5)
 
 if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
     message(
