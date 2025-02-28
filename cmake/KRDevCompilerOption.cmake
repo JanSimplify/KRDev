@@ -134,7 +134,7 @@ endfunction(krdev_targets_set_compile_options)
 function(krdev_targets_set_link_options)
     set(options)
     set(one_value_keywords)
-    set(multi_value_keywords TARGETS "PUBLIC;INTERFACE;PRIVATE")
+    set(multi_value_keywords "TARGETS;PUBLIC;INTERFACE;PRIVATE")
 
     cmake_parse_arguments(
         PARSE_ARGV 0
