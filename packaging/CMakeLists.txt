@@ -17,6 +17,7 @@ set(autogen_package_version_file "${autogen_cmake_dir}/${PROJECT_NAME}ConfigVers
 set(script_files
     "${PROJECT_SOURCE_DIR}/cmake/KRDevCompilerOption.cmake"
     "${PROJECT_SOURCE_DIR}/cmake/KRDevGitInfo.cmake"
+    "${PROJECT_SOURCE_DIR}/cmake/KRDevHelper.cmake"
 )
 
 #=============================
